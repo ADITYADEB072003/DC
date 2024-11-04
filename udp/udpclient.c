@@ -19,17 +19,19 @@ int main() {
     char send_data[BUFFER_SIZE];
 
     // Resolve server IP address
-    host = gethostbyname(SERVER_IP);
-    if (host == NULL) {
-        perror("Error resolving host");
-        exit(1);
-    }
+ host = gethostbyname(SERVER_IP);
+    // if (host == NULL) {
+    //     perror("Error resolving host");
+    //     exit(1);
+    // }
 
-    // Create UDP socket
-    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
+    // // Create UDP socket
+   sock = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sock < 0) {
         perror("Socket creation failed");
         exit(1);
     }
+
 
     // Configure server address structure
     server_addr.sin_family = AF_INET;
@@ -41,7 +43,7 @@ int main() {
     while (1) {
         printf("Type something (q or Q to quit): ");
         fgets(send_data, BUFFER_SIZE, stdin);
-        send_data[strcspn(send_data, "\n")] = '\0';  // Remove newline
+        //send_data[strcspn(send_data, "\n")] = '\0';  // Remove newline
 
         if (strcmp(send_data, "q") == 0 || strcmp(send_data, "Q") == 0) {
             break;
